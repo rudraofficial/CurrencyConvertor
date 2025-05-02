@@ -22,7 +22,7 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 350px;
+            max-width: 900px;
         }
 
         h2 {
@@ -31,26 +31,46 @@
             color: #333;
         }
 
-        input, select, button {
+        /* Added spacing between form elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group-input {
+            margin-right: 25px;
+            margin-bottom: 10px;
+        }
+
+        input, select {
             width: 100%;
             padding: 12px;
-            margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 1rem;
         }
 
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
+        /* Updated button styling for better appearance */
+        .gradient-btn {
+            display: block;
+            margin: 20px auto; /* Increased top and bottom margin for spacing */
+            outline: 0;
+            border: 0;
+            background-image: linear-gradient(to right, #e052a0, #f15c41);
             cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s ease-in-out;
+            border-radius: 20px; /* Made button more rounded */
+            color: #fff;
+            font-weight: 500;
+            text-align: center;
+            text-transform: uppercase;
+            height: 40px; /* Increased height for better visibility */
+            line-height: 40px;
+            padding: 0 20px; /* Increased horizontal padding */
+            font-size: 16px; /* Increased font size */
+            transition: background-image 0.3s ease;
+            max-width: 200px;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        .gradient-btn:hover {
+            background-image: linear-gradient(to right, #3ec7e0, #526bf4);
         }
 
         #result {
@@ -65,27 +85,34 @@
 <div class="converter">
     <h2>Currency Converter</h2>
 
-    <input type="number" id="amount" placeholder="Enter amount" />
+    <!-- Wrapped input and selects in form-group divs for spacing -->
+    <div class="form-group, form-group-input">
+        <input type="number" id="amount" placeholder="Enter amount" />
+    </div>
 
-    <select id="from">
-        <option value="INR">INR - Indian Rupee</option>
-        <option value="USD">USD - United States Dollar</option>
-        <option value="EUR">EUR - Euro</option>
-        <option value="CNY">CNY - Chinese Renminbi</option>
-        <option value="JPY">JPY - Japanese Yen</option>
-        <option value="SAR">SAR - Saudi Riyal</option>
-    </select>
+    <div class="form-group">
+        <select id="from">
+            <option value="INR">INR - Indian Rupee</option>
+            <option value="USD">USD - United States Dollar</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="CNY">CNY - Chinese Renminbi</option>
+            <option value="JPY">JPY - Japanese Yen</option>
+            <option value="SAR">SAR - Saudi Riyal</option>
+        </select>
+    </div>
 
-    <select id="to">
-        <option value="USD">USD - United States Dollar</option>
-        <option value="INR">INR - Indian Rupee</option>
-        <option value="EUR">EUR - Euro</option>
-        <option value="CNY">CNY - Chinese Renminbi</option>
-        <option value="JPY">JPY - Japanese Yen</option>
-        <option value="SAR">SAR - Saudi Riyal</option>
-    </select>
+    <div class="form-group">
+        <select id="to">
+            <option value="USD">USD - United States Dollar</option>
+            <option value="INR">INR - Indian Rupee</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="CNY">CNY - Chinese Renminbi</option>
+            <option value="JPY">JPY - Japanese Yen</option>
+            <option value="SAR">SAR - Saudi Riyal</option>
+        </select>
+    </div>
 
-    <button onclick="convertCurrency()">Convert</button>
+    <button class="gradient-btn" onclick="convertCurrency()">Convert</button>
 
     <div id="result"></div>
 </div>
