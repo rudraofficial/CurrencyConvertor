@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Currency Converter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .converter {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+<div class="converter">
+    <h2>Currency Converter</h2>
+
+    <input type="number" id="amount" placeholder="Enter amount" />
+
+    <select id="from">
+        <option value="INR">INR - Indian Rupee</option>
+        <option value="USD">USD - United States Dollar</option>
+        <option value="EUR">EUR - Euro</option>
+        <option value="CNY">CNY - Chinese Renminbi</option>
+        <option value="JPY">JPY - Japanese Yen</option>
+        <option value="SAR">SAR - Saudi Riyal</option>
+    </select>
+
+    <select id="to">
+        <option value="USD">USD - United States Dollar</option>
+        <option value="INR">INR - Indian Rupee</option>
+        <option value="EUR">EUR - Euro</option>
+        <option value="CNY">CNY - Chinese Renminbi</option>
+        <option value="JPY">JPY - Japanese Yen</option>
+        <option value="SAR">SAR - Saudi Riyal</option>
+    </select>
+
+    <button onclick="convertCurrency()">Convert</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function convertCurrency() {
+        const amount = parseFloat(document.getElementById("amount").value);
+        const from = document.getElementById("from").value;
+        const to = document.getElementById("to").value;
+
+        if (!amount || amount <= 0) {
+            document.getElementById("result").textContent = "Please enter a valid amount.";
+            return;
+        }
+
+        fetch("/api/currency/convert", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount, from, to })
+        })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("result").textContent =
+                    `Converted: ${data.convertedAmount.toFixed(2)} ${to}`;
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById("result").textContent = "Conversion failed. Try again.";
+            });
+    }
+</script>
+</body>
+</html>
